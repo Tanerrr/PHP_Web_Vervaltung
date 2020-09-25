@@ -1,6 +1,7 @@
 <?php
+    include 'config.php';
     try {
-        $PDO = new PDO ("mysql:host=localhost;port=8888;dbname=group_work", "root","root");
+        $PDO = new PDO ('mysql:host='.$host.';dbname='.$database, $username, $password);
     } catch(PDOException $e){
         echo $e ->getMessage();
     }
