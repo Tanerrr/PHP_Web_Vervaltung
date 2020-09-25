@@ -12,7 +12,7 @@ if(isset($_POST['delete'])){
     foreach ($itemID as $id){
         mysqli_query($conn, "Delete From benutzer where Benutzer_ID = ".$id);
     }
-    header("Location: content.php");
+    header("Location: benutzer.php");
 }
 mysqli_close($conn);
 
