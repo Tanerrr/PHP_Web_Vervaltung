@@ -1,10 +1,11 @@
-<?php include('config.php');?>
+<?php include('connection.php');?>
 
 <?php
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $update = true;
-    $record = mysqli_query($db, "SELECT Benutzer_ID, Benutzer_Name, DOB, Benutzer_Role_ID FROM benutzer WHERE Benutzer_ID=$id");
+    $query = "SELECT Benutzer_ID, Benutzer_Name, DOB, Benutzer_Role_ID FROM benutzer WHERE Benutzer_ID=$id";
+    $record = mysqli_query($db, $query);
 
     //if (count($record) == 1 ) {
     $n = mysqli_fetch_array($record);
@@ -15,12 +16,11 @@ if (isset($_GET['edit'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CReate, Update, Delete PHP MySQL</title>
+    <title>Create, Update, Delete PHP MySQL</title>
     <link rel="stylesheet" type="text/css" href="edit.css.php">
     <script>
         function toggle(source) {
@@ -34,6 +34,9 @@ if (isset($_GET['edit'])) {
     </script>
 </head>
 <body>
+<!--dosyanın en başına bu blok yazıldığı zaman edit, add, delete işlemleri yapıldığında ekrana ilgili
+ mesaj basıldığında belli oranda ekran küçülüyor. Sabit kalmasını istediğim için buraya yazdım-->
+
 <?php if (isset($_SESSION['message'])): ?>
     <div class="msg">
         <?php
@@ -43,52 +46,34 @@ if (isset($_GET['edit'])) {
     </div>
 <?php endif ?>
 
-<?php $results = mysqli_query($db, "SELECT Benutzer_ID, Benutzer_Name, DOB, Benutzer_Role_ID FROM benutzer"); ?>
-<form method="post" action="record_delete.php">
+<form method="post" action="connection.php">
     <table class="benutzer">
         <caption>BENUTZER LISTE<br><br></caption>
         <thead>
-        <th></th>
-        <!--when edit clicked change all the informations then click on go button
-        this will run sql command then informations will be saved and then refresh the page again -->
-        <!--when delete is clicked all row should be deleted
-         So delete button should connect the database sql delete from and
-         tnen update the page again-->
-        <th>BenutzerID</th><br>
-        <th>BenutzerName</th><br>
-        <th>RoleName</th><br>
-        <th>DoB</th>
-        <th>Rechten</th>
-        <th>Edit</th>
+            <th><label for="select_all_checkbox"></label><input type="checkbox" id="select_all_checkbox" onclick="toggle(this);"></th>
+            <th>BenutzerID</th>
+            <th>BenutzerName</th>
+            <th>RoleName</th>
+            <th>Geburtsdatum</th>
+            <th>Rechten</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </thead><br>
         <tbody>
         <?php
-        /* Attempt MySQL server connection. Assuming you are running MySQL
-        server with default setting (user 'root' with no password) */
-        $link = mysqli_connect("localhost", "root", "", "group_work");
-
-        // Check connection
-        if($link === false){
-            die("ERROR: Could not connect. " . mysqli_connect_error());
-        }
 
         // Attempt select query execution
         $sql = "SELECT b.Benutzer_ID, b.Benutzer_Name, b.DOB,  CONCAT(b.Benutzer_Role_ID, ': ', r.Rollen_Name)
-    AS Rollen, quer.RechtName from benutzer b JOIN 
-    (select rec.Rollen_ID, GROUP_CONCAT(DISTINCT r2.Recht_Name) AS RechtName from rollen_rechten rec join rechten r2 on r2.Recht_ID = rec.Recht_ID group by rec.Rollen_ID) quer
-    ON quer.Rollen_ID=b.Benutzer_Role_ID JOIN rollen r ON b.Benutzer_Role_ID = r.Rollen_ID
-    order by b.Benutzer_ID";
-        if($result = mysqli_query($link, $sql)){
+                AS Rollen, quer.RechtName from benutzer b JOIN 
+                (select rec.Rollen_ID, GROUP_CONCAT(DISTINCT r2.Recht_Name) AS RechtName 
+                from rollen_rechten rec join rechten r2 on r2.Recht_ID = rec.Recht_ID 
+                group by rec.Rollen_ID) quer ON quer.Rollen_ID=b.Benutzer_Role_ID 
+                JOIN rollen r ON b.Benutzer_Role_ID = r.Rollen_ID order by b.Benutzer_ID";
+
+        if($result = mysqli_query($db, $sql)){
             if(mysqli_num_rows($result) > 0){
-                /*echo "<table class='benutzer'>";
-                echo "<tr>";
-                echo "<th>BenutzerID</th>";
-                echo "<th>BenutzerName</th>";
-                echo "<th>RoleName</th>";
-                echo "<th>DoB</th>";
-                echo "</tr>";*/
                 while($row = mysqli_fetch_array($result)){
-                    echo "<tr>";
+                    echo "<tr class='rows'>";
                     echo "<td class='user_list'><input class='user_list1' type='checkbox' name='checkbox[]' value='".$row['Benutzer_ID']."'></td>";
                     echo "<td class='user_list'>" . $row['Benutzer_ID'] . "</td>";
                     echo "<td class='user_list'>" . $row['Benutzer_Name'] . "</td>";
@@ -96,6 +81,7 @@ if (isset($_GET['edit'])) {
                     echo "<td class='user_list'>" . $row['DOB'] . "</td>";
                     echo "<td class='user_list'>" . $row['RechtName'] . "</td>";
                     echo "<td class='user_list'><a href='benutzer.php?edit=".$row['Benutzer_ID']."#form_2' class='edit_btn'>Edit</a></td>";
+                    echo "<td class='user_list'><a href='connection.php?del=".$row['Benutzer_ID']."' class='del_btn'>Delete</a></td>";
                     echo "</tr>";
                 }
                 mysqli_free_result($result);
@@ -103,45 +89,66 @@ if (isset($_GET['edit'])) {
                 echo "No records matching your query were found.";
             }
         } else{
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
         }
 
-        // Close connection
-        mysqli_close($link);
         ?>
 
         </tbody>
     </table>
     <table class="control">
-        <tr>
-            <td><input type="checkbox" id="select_all_checkbox" onclick="toggle(this);">Check All</td>
-            <td class="button"><input type="submit" name="delete" id="delete" value="Delete Records"></td>
+        <tr class="del_sel_button">
+            <td><label for="select_all_checkbox"></label><input type="checkbox" id="select_all_checkbox" onclick="toggle(this);">Check All</td>
+            <td class="button"><input type="submit" name="delete" id="delete" value="Delete Selected Records"></td>
         </tr>
     </table>
 </form>
 
 
-<form class="form_2" id=form_2 method="post" action="config.php" >
+<form class="form_2" id=form_2 method="post" action="connection.php" >
 
     <input type="hidden" name="id" value="<?php echo $id; ?>">
 
     <div class="input-group">
-        <label>Name</label>
-        <input type="text" name="name" value="<?php echo $name; ?>">
+        <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<?php echo $name; ?>">
     </div>
     <div class="input-group">
-        <label>Rolle</label>
-        <input type="text" name="rolle" value="<?php echo $rolle; ?>">
+        <label for="rolle">Rolle Auswählen</label>
+        <select name="rolle" id="rolle" form="form_2" required>
+
+            <!--Select listelerinin elemanlarını veritabanından çekmek için bu SQL kodunu oluşturuyoruz. -->
+            <?php
+            $query2= "SELECT b.Benutzer_Role_ID, CONCAT( b.Benutzer_Role_ID, ': ', r.Rollen_Name) AS Rollen from benutzer b
+            JOIN rollen r ON b.Benutzer_Role_ID = r.Rollen_ID group by Benutzer_Role_ID order by Benutzer_Role_ID";
+
+            $res = mysqli_query($db, $query2);
+            while($row2 = mysqli_fetch_array($res)){
+                echo "<option name='rolle' value='".$row2['Benutzer_Role_ID']."'>".$row2['Rollen']."</option>";
+            }
+            mysqli_free_result($res);
+            ?>
+            <!--<option name="rolle" value=1>1: Admin</option>
+            <option name="rolle" value=2>2: Editor</option>
+            <option name="rolle" value=3>3: Guest</option>
+
+             Bir satır edit edildiğinde aşağıdaki option seçeneğini otomatik olarak seçmesini istiyoruz.
+             update==true bundan dolayı koşul olarak eklendi. -->
+            <?php if ($update == true): ?>
+                <option name="rolle" value="<?php echo $rolle; ?>" selected><?php echo $rolle; ?></option>
+            <?php endif ?>
+        </select>
     </div>
+
     <div class="input-group">
-        <label>Geburtsdatum</label>
-        <input type="date" name="dob" value="<?php echo $dob; ?>">
+        <label for="dob">Geburtsdatum</label>
+            <input type="date" name="dob" id="dob" value="<?php echo $dob; ?>">
     </div>
     <div class="input-group">
         <?php if ($update == true): ?>
             <button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
         <?php else: ?>
-            <button class="btn" type="submit" name="save" >Save</button>
+            <button class="btn" type="submit" name="save" >Add</button>
         <?php endif ?>
     </div>
 </form>

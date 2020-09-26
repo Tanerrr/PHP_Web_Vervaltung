@@ -6,6 +6,9 @@ header("Content-Type:text/css");
     margin-left:auto;
     margin-right:auto;
     border: 1px solid black;
+    width: 50%;
+    text-align: left;
+    margin-bottom: 5px;
 }
 .control{
     border-collapse: collapse;
@@ -13,6 +16,11 @@ header("Content-Type:text/css");
     margin-right:auto;
     border: 1px solid black;
 }
+.button {
+    padding: 2px;
+
+}
+
 caption{
     color: black;
     font-weight: bold;
@@ -22,12 +30,7 @@ caption{
 body {
     font-size: 19px;
 }
-table{
-    width: 50%;
-    margin: 30px auto;
-    border-collapse: collapse;
-    text-align: left;
-}
+
 tr {
     border-bottom: 1px solid #cbcbcb;
 }
@@ -36,11 +39,11 @@ th, td{
     border: 1px solid black;
     padding: 0 15px;
 }
-tr:hover {
+.rows:hover {
     background: #F5F5F5;
 }
 
-.form_2, .control {
+.form_2{
     width: 45%;
     margin: 50px auto;
     text-align: left;
