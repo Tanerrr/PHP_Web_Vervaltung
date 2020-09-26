@@ -2,7 +2,7 @@
 session_start();
 
 $username = 'root';
-$password = '';
+$password = 'root';
 $host = 'localhost';
 $database = 'group_work';
 
