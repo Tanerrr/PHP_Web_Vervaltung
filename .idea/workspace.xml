@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e05b1dcb-b1d0-49da-8ec2-40d7b8262a49" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Rollrecht.php" beforeDir="false" afterPath="$PROJECT_DIR$/Rollrecht.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benutzer.php" beforeDir="false" afterPath="$PROJECT_DIR$/benutzer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content2.php" beforeDir="false" afterPath="$PROJECT_DIR$/content2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit.css.php" beforeDir="false" afterPath="$PROJECT_DIR$/edit.css.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/nav.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectId" id="1i417rlELMjaAkqhqggVB6Ze9cn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e05b1dcb-b1d0-49da-8ec2-40d7b8262a49" name="Default Changelist" comment="" />
+      <created>1601151886445</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601151886445</updated>
+      <workItem from="1601151888833" duration="10032000" />
+      <workItem from="1601466433096" duration="769000" />
+      <workItem from="1601632924647" duration="2249000" />
+      <workItem from="1601987288889" duration="1039000" />
+      <workItem from="1602352218181" duration="2265000" />
+      <workItem from="1602875907272" duration="2109000" />
+      <workItem from="1603025896889" duration="254000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="508" y="175" key="#PHP" timestamp="1601748651395">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="508" y="175" key="#PHP/0.0.1680.1050@0.0.1680.1050" timestamp="1601748651395" />
+  </component>
+</project>
