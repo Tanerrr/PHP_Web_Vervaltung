@@ -20,9 +20,9 @@ $stmt = $PDO->query("SELECT b.Benutzer_ID, b.Benutzer_Name, b.DOB,  CONCAT(b.Ben
                 JOIN rollen r ON b.Benutzer_Role_ID = r.Rollen_ID order by b.Benutzer_ID");
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-echo '<h2 style="width: 80%; margin: 0 auto;">Benutzern</h2><br>'."\n";
-echo '<table class="table table-striped text-monospace" style="width: 80%; margin: 0 auto;">'."\n";
+echo "<div class='container'>";
+echo '<h2>Benutzern</h2><br>'."\n";
+echo '<table class="table table-striped text-monospace" style="width: 100%; margin-bottom: 20px;">'."\n";
 
 echo "
     
@@ -66,6 +66,8 @@ foreach ( $rows as $row ) {
 
 }
 echo "</table>\n";
+echo "</div>";
+
 
 require_once "footer.php";
 

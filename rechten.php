@@ -6,8 +6,8 @@ require_once "connection.php";
 $stmt = $PDO->query("SELECT Recht_ID, Recht_Name FROM rechten");
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-echo '<table class="table table-striped text-monospace mt-5 ml-5 mb-5" style="width: 20%;">'."\n";
+echo "<div class='container'>";
+echo '<table class="table table-striped text-monospace mt-5" style="width: 30%; margin: 0 auto;">'."\n";
 
 echo "
     <thead class='bg-dark text-white'>
@@ -28,6 +28,7 @@ foreach ( $rows as $row ) {
 
 }
 echo "</table>\n";
+echo "</div>";
 
 require_once "footer.php";
 

@@ -13,7 +13,7 @@ $stmt = $PDO->query("SELECT CONCAT(r.Rollen_ID, ': ', r.Rollen_Name)
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-echo '<table class="table table-striped text-monospace" style="width: 60%; margin: 0 auto;">'."\n";
+echo '<table class="table table-striped text-monospace mt-5" style="width: 60%; margin: 0 auto;">'."\n";
 
 echo "
     <thead class='bg-secondary text-white'>
